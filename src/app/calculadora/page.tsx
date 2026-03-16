@@ -1,4 +1,4 @@
-import { FeaturePlaceholder } from "@/components/shared/feature-placeholder";
+import { CommercialCalculator } from "@/components/calculator/commercial-calculator";
 import { PageTitle } from "@/components/shared/page-title";
 
 export default function CalculadoraPage() {
@@ -6,13 +6,10 @@ export default function CalculadoraPage() {
     <section>
       <PageTitle
         title="Calculadora"
-        description="Espacio para operaciones rapidas del local: margenes, descuentos y validaciones comerciales."
+        description="Calculadora comercial para estimar precios sugeridos, minimos y utilidades segun costo y categoria."
       />
 
-      <FeaturePlaceholder
-        title="Estructura inicial lista"
-        description="Aqui se implementaran las herramientas de calculo con inputs y resultados claros para uso diario."
-      />
+      <CommercialCalculator />
     </section>
   );
 }
