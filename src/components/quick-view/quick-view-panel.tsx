@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   DEFAULT_CATEGORY_MARGINS,
   PRODUCT_CATEGORY_OPTIONS,
@@ -19,6 +19,7 @@ type ResolvedValue<T> = {
 };
 
 export function QuickViewPanel() {
+  const quickInputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState("");
   const [category, setCategory] = useState<ProductCategory>("celular");
   const [realSalePriceInput, setRealSalePriceInput] = useState("");
@@ -27,10 +28,9 @@ export function QuickViewPanel() {
     loadCategoryMargins(DEFAULT_CATEGORY_MARGINS),
   );
 
-  const refreshCategoryMargins = useCallback(
-    () => setCategoryMargins(loadCategoryMargins(DEFAULT_CATEGORY_MARGINS)),
-    [],
-  );
+  const refreshCategoryMargins = useCallback(() => {
+    setCategoryMargins(loadCategoryMargins(DEFAULT_CATEGORY_MARGINS));
+  }, []);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -118,25 +118,46 @@ export function QuickViewPanel() {
     } catch (error) {
       return {
         value: null,
-        error:
-          error instanceof Error
-            ? error.message
-            : "No se pudo calcular la utilidad real.",
+        error: error instanceof Error ? error.message : "No se pudo calcular la utilidad real.",
       };
     }
   }, [realSalePriceInput, resolvedInput.value]);
 
-  function handleClear() {
+  function clearInputResults() {
     setInputValue("");
-    setCategory("celular");
     setRealSalePriceInput("");
     setCopyMessage("");
+  }
+
+  function focusQuickInput() {
+    window.requestAnimationFrame(() => {
+      quickInputRef.current?.focus();
+    });
+  }
+
+  function handleInlineClear() {
+    clearInputResults();
+    focusQuickInput();
+  }
+
+  function handleClear() {
+    clearInputResults();
+    setCategory("celular");
+    focusQuickInput();
   }
 
   async function handleCopy(value: string, label: string) {
     try {
       await navigator.clipboard.writeText(value);
       setCopyMessage(`${label} copiado.`);
+
+      if (
+        typeof navigator !== "undefined" &&
+        "vibrate" in navigator &&
+        typeof navigator.vibrate === "function"
+      ) {
+        navigator.vibrate(20);
+      }
     } catch {
       setCopyMessage("No se pudo copiar automáticamente.");
     }
@@ -155,20 +176,37 @@ export function QuickViewPanel() {
             <label htmlFor="quick-view-input" className="text-sm font-medium text-slate-800">
               Precio o código
             </label>
-            <input
-              id="quick-view-input"
-              type="text"
-              value={inputValue}
-              onChange={(event) => {
-                setInputValue(event.target.value);
-                setCopyMessage("");
-              }}
-              placeholder="Ej: 120,50 o LU,SI"
-              className="min-h-12 w-full rounded-xl border border-slate-300 px-4 py-3 text-base text-slate-900 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
-            />
-            <p className="text-xs text-slate-500">
-              Ejemplos: 120 | 120,50 | LU,SI | LI.US
-            </p>
+            <div className="relative">
+              <input
+                ref={quickInputRef}
+                id="quick-view-input"
+                type="text"
+                autoFocus
+                value={inputValue}
+                onFocus={(event) => {
+                  if (event.currentTarget.value) {
+                    event.currentTarget.select();
+                  }
+                }}
+                onChange={(event) => {
+                  setInputValue(event.target.value);
+                  setCopyMessage("");
+                }}
+                placeholder="Ej: 120,50 o LU,SI"
+                className="min-h-12 w-full rounded-xl border border-slate-300 px-4 py-3 pr-11 text-base text-slate-900 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
+              />
+              {inputValue ? (
+                <button
+                  type="button"
+                  onClick={handleInlineClear}
+                  aria-label="Limpiar entrada"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full border border-slate-300 bg-white px-2 py-1 text-xs font-semibold text-slate-600 transition hover:bg-slate-100"
+                >
+                  {"\u2715"}
+                </button>
+              ) : null}
+            </div>
+            <p className="text-xs text-slate-500">Ejemplos: 120 | 120,50 | LU,SI | LI.US</p>
           </div>
 
           <div className="space-y-2">
@@ -240,9 +278,7 @@ export function QuickViewPanel() {
           />
           <QuickStat
             label="Márgenes activos"
-            value={`${selectedMargins.suggested.toFixed(2)}% / ${selectedMargins.minimum.toFixed(
-              2,
-            )}%`}
+            value={`${selectedMargins.suggested.toFixed(2)}% / ${selectedMargins.minimum.toFixed(2)}%`}
           />
         </div>
         {copyMessage ? <p className="mt-3 text-xs text-slate-600">{copyMessage}</p> : null}
@@ -258,9 +294,7 @@ export function QuickViewPanel() {
           <ResultCard
             title="Sugerido"
             salePrice={
-              automaticCalculation
-                ? formatMoney(automaticCalculation.suggested.salePrice)
-                : "--"
+              automaticCalculation ? formatMoney(automaticCalculation.suggested.salePrice) : "--"
             }
             margin={
               automaticCalculation
