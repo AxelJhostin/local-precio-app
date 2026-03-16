@@ -1,4 +1,4 @@
-import { FeaturePlaceholder } from "@/components/shared/feature-placeholder";
+import { ConfigurationPanel } from "@/components/configuration/configuration-panel";
 import { PageTitle } from "@/components/shared/page-title";
 
 export default function ConfiguracionPage() {
@@ -6,13 +6,10 @@ export default function ConfiguracionPage() {
     <section>
       <PageTitle
         title="Configuración"
-        description="Panel para definir parámetros base de la app y reglas que usarán los módulos de conversión y cálculo."
+        description="Administra parámetros clave de la aplicación: guía del código LUBRICADOS y márgenes por categoría."
       />
 
-      <FeaturePlaceholder
-        title="Próximamente"
-        description="Aquí se agregarán ajustes como factores, formatos de código y preferencias operativas del local."
-      />
+      <ConfigurationPanel />
     </section>
   );
 }
