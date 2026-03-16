@@ -115,7 +115,7 @@ export function validateCodeInput(input: string): ValidationResult {
   if (unknownCharacter) {
     return {
       isValid: false,
-      error: `La letra "${unknownCharacter}" no pertenece al código LUBRICADOS.`,
+      error: `La letra "${unknownCharacter}" no pertenece al código.`,
     };
   }
 

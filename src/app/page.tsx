@@ -3,6 +3,12 @@ import { PageTitle } from "@/components/shared/page-title";
 
 const QUICK_ACCESS = [
   {
+    href: "/vista-rapida",
+    title: "Vista rápida",
+    description:
+      "Flujo principal resumido para detectar entrada y calcular precios al instante.",
+  },
+  {
     href: "/precio-a-codigo",
     title: "Precio a código",
     description: "Convierte un precio de venta al código interno del local.",
@@ -20,7 +26,7 @@ const QUICK_ACCESS = [
   {
     href: "/configuracion",
     title: "Configuración",
-    description: "Revisa ajustes generales y próximos parámetros de la app.",
+    description: "Revisa ajustes generales y parámetros de la aplicación.",
   },
 ];
 
@@ -68,7 +74,7 @@ export default function HomePage() {
             >
               <span>{item.title}</span>
               <span className="text-slate-400" aria-hidden="true">
-                →
+                {"->"}
               </span>
             </Link>
           ))}

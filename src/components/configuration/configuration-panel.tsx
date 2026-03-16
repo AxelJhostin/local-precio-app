@@ -131,7 +131,7 @@ export function ConfigurationPanel() {
   return (
     <div className="mt-6 space-y-4 sm:space-y-5">
       <section className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
-        <h2 className="text-lg font-semibold text-slate-900">Código LUBRICADOS</h2>
+        <h2 className="text-lg font-semibold text-slate-900">Código</h2>
         <p className="mt-1 text-sm text-slate-600">
           Esta equivalencia convierte números en letras para codificar y
           decodificar precios del local.

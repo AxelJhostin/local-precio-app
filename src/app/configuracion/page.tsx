@@ -6,7 +6,7 @@ export default function ConfiguracionPage() {
     <section>
       <PageTitle
         title="Configuración"
-        description="Administra parámetros clave de la aplicación: guía del código LUBRICADOS y márgenes por categoría."
+        description="Administra parámetros clave de la aplicación: guía del código y márgenes por categoría."
       />
 
       <ConfigurationPanel />

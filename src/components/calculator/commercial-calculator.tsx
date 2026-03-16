@@ -34,7 +34,7 @@ type MarginState = {
 
 const COST_MODE_OPTIONS: { value: CostInputMode; label: string }[] = [
   { value: "manual", label: "Costo manual" },
-  { value: "code", label: "Código LUBRICADOS" },
+  { value: "code", label: "Código" },
 ];
 
 export function CommercialCalculator() {
@@ -208,7 +208,7 @@ export function CommercialCalculator() {
 
         <div className="mt-4 space-y-2">
           <label htmlFor="calculator-cost-input" className="text-sm font-medium text-slate-800">
-            {costMode === "manual" ? "Costo manual" : "Código LUBRICADOS"}
+            {costMode === "manual" ? "Costo manual" : "Código"}
           </label>
           <input
             id="calculator-cost-input"
