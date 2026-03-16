@@ -43,7 +43,7 @@ export function calculateProfitPercentage(cost: number, salePrice: number): numb
 export function parseCostInput(input: string): number {
   const validation = validatePriceInput(input);
   if (!validation.isValid) {
-    throw new Error(validation.error ?? "Ingresa un costo valido.");
+    throw new Error(validation.error ?? "Ingresa un costo válido.");
   }
 
   const normalizedCost = normalizePrice(input);
@@ -56,7 +56,7 @@ export function parseCostInput(input: string): number {
 export function parseSalePriceInput(input: string): number {
   const validation = validatePriceInput(input);
   if (!validation.isValid) {
-    throw new Error(validation.error ?? "Ingresa un precio de venta valido.");
+    throw new Error(validation.error ?? "Ingresa un precio de venta válido.");
   }
 
   const normalizedPrice = normalizePrice(input);
@@ -74,7 +74,7 @@ export function parseMarginInput(input: string, label: string): number {
 
   if (!/^\d+([.,]\d{1,2})?$/.test(trimmedInput)) {
     throw new Error(
-      `El margen ${label} debe ser un numero con hasta 2 decimales.`,
+      `El margen ${label} debe ser un número con hasta 2 decimales.`,
     );
   }
 
@@ -94,7 +94,7 @@ export function resolveCostFromManualOrCode(
     throw new Error(
       mode === "manual"
         ? "Ingresa el costo manual para calcular."
-        : "Ingresa un codigo para obtener el costo base.",
+        : "Ingresa un código para obtener el costo base.",
     );
   }
 
@@ -124,10 +124,10 @@ export function resolveCostFromManualOrCode(
 
 export function validateMarginPair(suggested: number, minimum: number): void {
   assertNonNegativeNumber(suggested, "margen sugerido");
-  assertNonNegativeNumber(minimum, "margen minimo");
+  assertNonNegativeNumber(minimum, "margen mínimo");
 
   if (minimum > suggested) {
-    throw new Error("El margen minimo no puede ser mayor al margen sugerido.");
+    throw new Error("El margen mínimo no puede ser mayor al margen sugerido.");
   }
 }
 

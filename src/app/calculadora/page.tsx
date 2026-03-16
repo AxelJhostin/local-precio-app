@@ -6,7 +6,7 @@ export default function CalculadoraPage() {
     <section>
       <PageTitle
         title="Calculadora"
-        description="Calculadora comercial para estimar precios sugeridos, minimos y utilidades segun costo y categoria."
+        description="Calculadora comercial para estimar precios sugeridos, mínimos y utilidades según costo y categoría."
       />
 
       <CommercialCalculator />

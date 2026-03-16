@@ -5,8 +5,8 @@ export default function CodigoAPrecioPage() {
   return (
     <section>
       <PageTitle
-        title="Codigo a precio"
-        description="Recupera el precio de venta a partir del codigo interno para validar productos en mostrador o inventario."
+        title="Código a precio"
+        description="Recupera el precio de venta a partir del código interno para validar productos en mostrador o inventario."
       />
 
       <ConversionForm mode="code_to_price" />

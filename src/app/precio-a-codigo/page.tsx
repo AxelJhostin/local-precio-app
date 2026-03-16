@@ -5,8 +5,8 @@ export default function PrecioACodigoPage() {
   return (
     <section>
       <PageTitle
-        title="Precio a codigo"
-        description="Convierte un precio de venta en el codigo interno del local para etiquetado y referencia rapida."
+        title="Precio a código"
+        description="Convierte un precio de venta en el código interno del local para etiquetado y referencia rápida."
       />
 
       <ConversionForm mode="price_to_code" />

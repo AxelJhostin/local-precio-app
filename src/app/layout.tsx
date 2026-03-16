@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Local Precio",
   },
   description:
-    "Aplicacion interna para convertir precios en codigos y gestionar calculos del local.",
+    "Aplicación interna para convertir precios en códigos y gestionar cálculos del local.",
 };
 
 export default function RootLayout({

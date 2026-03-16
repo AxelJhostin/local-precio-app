@@ -25,7 +25,7 @@ export function validatePriceInput(input: string): ValidationResult {
   if (!PRICE_ALLOWED_REGEX.test(trimmedInput)) {
     return {
       isValid: false,
-      error: "El precio solo puede contener numeros, coma o punto decimal.",
+      error: "El precio solo puede contener números, coma o punto decimal.",
     };
   }
 
@@ -33,7 +33,7 @@ export function validatePriceInput(input: string): ValidationResult {
   if (separators.length > 1) {
     return {
       isValid: false,
-      error: "El precio tiene multiples separadores decimales.",
+      error: "El precio tiene múltiples separadores decimales.",
     };
   }
 
@@ -42,28 +42,28 @@ export function validatePriceInput(input: string): ValidationResult {
   if (!integerPart || !/^\d+$/.test(integerPart)) {
     return {
       isValid: false,
-      error: "La parte entera del precio es invalida.",
+      error: "La parte entera del precio es inválida.",
     };
   }
 
   if (separators.length === 1 && decimalPart.length === 0) {
     return {
       isValid: false,
-      error: "La parte decimal no puede estar vacia.",
+      error: "La parte decimal no puede estar vacía.",
     };
   }
 
   if (decimalPart.length > 2) {
     return {
       isValid: false,
-      error: "El precio no puede tener mas de 2 decimales.",
+      error: "El precio no puede tener más de 2 decimales.",
     };
   }
 
   if (decimalPart && !/^\d+$/.test(decimalPart)) {
     return {
       isValid: false,
-      error: "La parte decimal del precio es invalida.",
+      error: "La parte decimal del precio es inválida.",
     };
   }
 
@@ -74,13 +74,13 @@ export function validateCodeInput(input: string): ValidationResult {
   const trimmedInput = input.trim();
 
   if (!trimmedInput) {
-    return { isValid: false, error: "Ingresa un codigo para convertir." };
+    return { isValid: false, error: "Ingresa un código para convertir." };
   }
 
   if (!CODE_ALLOWED_REGEX.test(trimmedInput)) {
     return {
       isValid: false,
-      error: "El codigo solo puede contener letras, coma o punto decimal.",
+      error: "El código solo puede contener letras, coma o punto decimal.",
     };
   }
 
@@ -88,7 +88,7 @@ export function validateCodeInput(input: string): ValidationResult {
   if (separators.length !== 1) {
     return {
       isValid: false,
-      error: "El codigo debe tener un unico separador decimal (coma o punto).",
+      error: "El código debe tener un único separador decimal (coma o punto).",
     };
   }
 
@@ -97,14 +97,14 @@ export function validateCodeInput(input: string): ValidationResult {
   if (!integerPart || !decimalPart) {
     return {
       isValid: false,
-      error: "El codigo debe incluir parte entera y parte decimal.",
+      error: "El código debe incluir parte entera y parte decimal.",
     };
   }
 
   if (decimalPart.length !== 2) {
     return {
       isValid: false,
-      error: "La parte decimal del codigo debe tener exactamente 2 letras.",
+      error: "La parte decimal del código debe tener exactamente 2 letras.",
     };
   }
 
@@ -115,7 +115,7 @@ export function validateCodeInput(input: string): ValidationResult {
   if (unknownCharacter) {
     return {
       isValid: false,
-      error: `La letra "${unknownCharacter}" no pertenece al codigo LUBRICADOS.`,
+      error: `La letra "${unknownCharacter}" no pertenece al código LUBRICADOS.`,
     };
   }
 
@@ -125,7 +125,7 @@ export function validateCodeInput(input: string): ValidationResult {
 export function normalizePrice(input: string): string {
   const validation = validatePriceInput(input);
   if (!validation.isValid) {
-    throw new Error(validation.error ?? "El precio ingresado es invalido.");
+    throw new Error(validation.error ?? "El precio ingresado es inválido.");
   }
 
   const { integerPart, decimalPart } = splitDecimal(input.trim());
@@ -159,7 +159,7 @@ export function codeToPrice(code: string): string {
 function normalizeCode(input: string): string {
   const validation = validateCodeInput(input);
   if (!validation.isValid) {
-    throw new Error(validation.error ?? "El codigo ingresado es invalido.");
+    throw new Error(validation.error ?? "El código ingresado es inválido.");
   }
 
   const { integerPart, decimalPart } = splitDecimal(input.trim().toUpperCase());
